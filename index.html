@@ -14,17 +14,43 @@
             body {
                 font-family: Arial, Helvetica, sans-serif;
             }
+            .heading {
+                color:darkblue;
+            }
+            #firstpara {
+                color: white;
+            }
+
+            div {
+              border-style: solid;
+              padding: 20px;
+              margin: 10px;
+            }
+
+            #firstDiv {
+              width: 200px;
+            }
+
+            #secondDiv {
+              width: 400px;
+            }
         </style>
     </head>
     <body>
-        <h1>This is an h1 tag</h1>
-        <p> here is a paragraph </p>
-        <ul>
-            <li>first bullet</li>
-            <li>second bullet</li>
-        </ul>
-        <p>
-            An "a" tag with an `href` attribute gives us a  <a href="https://google.com"> link </a>
-        </p>
+        <div id="firstDiv">
+            <h1 class="heading">This is an h1 tag</h1>
+            <h1>This is another h1 tag</h1>
+            <p id="firstPara"> here is a paragraph </p>
+        </div>
+
+        <div id="secondDiv">
+            <ul>
+                <li>first bullet</li>
+                <li>second bullet</li>
+            </ul>
+            <p>
+                An "a" tag with an `href` attribute gives us a  <a href="https://google.com"> link </a>
+            </p>
+        </div>
     </body>
 </html>
