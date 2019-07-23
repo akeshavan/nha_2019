@@ -33,7 +33,11 @@
     </head>
     <body>
       <h1>Our first bar graph</h1>
+      Now lets use D3.js instead!
 
+      <div id="chart"></div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
       <script>
         // introducing javascript
 
@@ -49,25 +53,18 @@
         var labels = ['a', 'b', 'c', 'd', 'e'];
 
         // next, lets create a new div element
-        // lets create a function to do this
+        // lets use D3 to do this
 
-        function addBar(x, label) {
-          var newDiv = document.createElement('div')
-          newDiv.className = 'bar'
-          newDiv.style.width = x;
-          newDiv.innerHTML = label;
-          document.body.append(newDiv);
-        }
-
-        // now lets call the function
-
-        addBar(data[0], labels[0]);
-
-        // write a for loop for each item in data and labels
-
-        for (var i=1; i<data.length; i += 1) {
-          addBar(data[i], labels[i]);
-        }
+        d3.select('#chart')
+          .selectAll('.bar')
+          .data(data) // bind data to the elements inside #chart with class bar
+          .enter()
+          .append('div') // if there is a mismatch between data and .bar elements, append a div
+          .attr('class', 'bar') // set the class for those new divs as 'bar'
+          // next lets dynamically set the width and label. If the second argument in the method call
+          // is a function, D3 will pass us our data 1 at a time.
+          .style('width', d => d + 'px') // this arrow notation is used for anonymous functions
+          .text((d,i) => labels[i]) // with two variables, use parenthesis before the arrow
 
 
       </script>
