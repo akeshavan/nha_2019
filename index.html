@@ -33,12 +33,30 @@
     </head>
     <body>
       <h1>Our first bar graph</h1>
-      <div>
-        <div class="bar" style="width: 20px">a</div>
-        <div class="bar" style="width: 10px">b</div>
-        <div class="bar" style="width: 50px">c</div>
-        <div class="bar" style="width: 90px">d</div>
-        <div class="bar" style="width: 80px">e</div>
-      </div>
+
+      <script>
+        // introducing javascript
+
+        // in JS, we can manipulate HTML and CSS
+        // all HTML elements are represented by the Document-Object-Model (DOM)
+        // which is a massive datastructure that the browser uses to render a page.
+
+        // using JS, we can manipulate the DOM
+
+        // first, lets create an Array with our data and labels:
+
+        var data = [20, 10, 50, 90, 80];
+        var labels = ['a', 'b', 'c', 'd', 'e'];
+
+        // next, lets create a new div element
+
+        var newDiv = document.createElement('div')
+        newDiv.className = 'bar'
+        newDiv.style.width = data[0];
+        newDiv.innerHTML = labels[0];
+        document.body.append(newDiv);
+
+
+      </script>
     </body>
 </html>
