@@ -49,12 +49,25 @@
         var labels = ['a', 'b', 'c', 'd', 'e'];
 
         // next, lets create a new div element
+        // lets create a function to do this
 
-        var newDiv = document.createElement('div')
-        newDiv.className = 'bar'
-        newDiv.style.width = data[0];
-        newDiv.innerHTML = labels[0];
-        document.body.append(newDiv);
+        function addBar(x, label) {
+          var newDiv = document.createElement('div')
+          newDiv.className = 'bar'
+          newDiv.style.width = x;
+          newDiv.innerHTML = label;
+          document.body.append(newDiv);
+        }
+
+        // now lets call the function
+
+        addBar(data[0], labels[0]);
+
+        // write a for loop for each item in data and labels
+
+        for (var i=1; i<data.length; i += 1) {
+          addBar(data[i], labels[i]);
+        }
 
 
       </script>
