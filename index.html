@@ -33,13 +33,11 @@
     </head>
     <body>
       <h1>Our first bar graph</h1>
-      Now lets use D3.js instead!
+      Kittens:
 
       <div id="chart"></div>
+      <select id="metricName"></select>
 
-      <button onclick="updateChart()">Update Chart</button>
-      <button onclick="addRow()">Add row</button>
-      <button onclick="removeRow()">Remove row</button>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
       <script>
@@ -51,16 +49,35 @@
 
         // using JS, we can manipulate the DOM
 
-        // first, lets create an Array with our data and labels:
+        // lets load external data using D3
 
-        var data = [20, 10, 50, 90, 80];
-        var labels = ['a', 'b', 'c', 'd', 'e'];
-        var allLabels = 'abcdefghijklmnopqrstuvwxyz';
+        d3.csv('./dataset.csv').then((data) => {
+
+          // get the list of column names that isn't
+          const metrics = [...data.columns]
+          metrics.splice(0,2)
+
+          d3.select('#metricName')
+            .selectAll('option')
+            .data(metrics)
+            .enter()
+            .append('option')
+            .text(m => m)
+            .attr('value', m => m)
+
+          d3.select('#metricName')
+            .on('change', () => {
+              var metric = d3.select('#metricName').node().value;
+              updateElements(data, metric);
+            })
+
+          addNewElements(data, data.columns[2]);
+        })
 
         // next, lets create a new div element
         // lets use D3 to do this
 
-        function addNewElements(data, labels) {
+        function addNewElements(data, metric) {
           d3.select('#chart')
           .selectAll('.bar')
           .data(data) // bind data to the elements inside #chart with class bar
@@ -69,8 +86,8 @@
           .attr('class', 'bar') // set the class for those new divs as 'bar'
           // next lets dynamically set the width and label. If the second argument in the method call
           // is a function, D3 will pass us our data 1 at a time.
-          .style('width', d => d + 'px') // this arrow notation is used for anonymous functions
-          .text((d,i) => labels[i]) // with two variables, use parenthesis before the arrow
+          .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
+          .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
         }
 
         function removeExtraElements(data) {
@@ -81,34 +98,13 @@
           .remove('div') // if there is a mismatch between data and .bar elements, append a div
         }
 
-        function updateElemenets(data, labels) {
+        function updateElements(data, metric) {
           d3.select('#chart')
             .selectAll('.bar')
             .data(data) // bind data to the elements inside #chart with class bar
             // no need to .enter().append() because we know the bars exist
-            .style('width', d => d + 'px') // this arrow notation is used for anonymous functions
-            .text((d,i) => labels[i]) // with two variables, use parenthesis before the arrow
-        }
-
-        function updateChart() {
-          console.log('updating the chart!');
-          for (var i=0; i<data.length; i += 1) {
-            data[i] += (Math.random() - 0.5) * 20; // add or subtract some random number from data.
-          }
-          // just update the existing bars we created earlier.
-          updateElements();
-        }
-
-        function addRow() {
-          data.push(Math.random() * 100);
-          labels.push(allLabels[data.length-1]);
-          addNewElements(data, labels);
-        }
-
-        function removeRow() {
-          data.pop();
-          labels.pop();
-          removeExtraElements();
+            .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
+            .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
         }
 
       </script>
