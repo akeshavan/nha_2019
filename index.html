@@ -1,118 +1,205 @@
-<html>
-    <head>
-        <title>Neurohackademy 2019</title>
-        <style>
-            h1 {
-                color:darkviolet;
-                text-align: center;
-            }
-            p {
-                margin: 20px;
-                padding: 10px;
-                background-color: aquamarine;
-            }
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-                margin: 20px;
-            }
+<html><head>
+    <title>Neurohackademy 2019</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
 
-            .bar {
-              background-color: steelblue;
-              color: white;
-              padding: 2px;
-              height: 25px;
-              width: 100px;
-              margin: 2px;
-              text-align: left;
-            }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: auto;
+            width: 90%;
+            padding-top: 20px;
 
-            .bar:hover {
-              background-color: darkred;
-            }
-        </style>
-    </head>
-    <body>
-      <h1>Our first bar graph</h1>
-      Kittens:
+        }
 
-      <div id="chart"></div>
-      <select id="metricName"></select>
-      <div>
-        <img id="kittenImg" />
-      </div>
+        .bar {
+          background-color: steelblue;
+          color: white;
+          padding: 2px;
+          height: 25px;
+          width: 100px;
+          margin: 2px;
+          text-align: left;
+          cursor: pointer;
+        }
+
+        .column {
+          float: left;
+          width: 50%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        .selector {
+          margin: 20px;
+          text-align: center;
+          align-items: center;
+        }
+
+        img {
+          width: 200px;
+          height: 200px;
+        }
+
+        .container {
+          margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+  <h1>A random interactive bar graph with kittens</h1>
+  Click on a bar to see a kitten:
+
+  <div class="selector">
+    <small> metric: </small>
+    <select id="metricName"><option value="softness_score">softness_score</option><option value="cuteness_score">cuteness_score</option></select>
+  </div>
+
+  <div class="container">
+    <div id="chart" class="column"><div class="bar" style="width: 20px; background-color: steelblue;">a</div><div class="bar" style="width: 84px; background-color: steelblue;">b</div><div class="bar" style="width: 30px; background-color: steelblue;">c</div><div class="bar" style="width: 58px; background-color: darkred;">d</div><div class="bar" style="width: 44px; background-color: steelblue;">e</div></div>
+    <div class="column">
+      <img id="kittenImg" src="https://placekitten.com/100/100">
+    </div>
+  </div>
+
+  <div>
+    <h4>What is this?</h4>
+    <p>
+      This is a <i>very</i> simple example of creating an interactive plot with d3.js,
+      for a <a href="https://neurohackademy.org/">Neurohackademy</a> tutorial.
+      Learning <a href="d3js.org">D3.js</a> is important if you want to create customized interactive 
+      data visualizations for your research, like Figure 4 in <a href="https://anisha.pizza/braindr-results/#/">results.braindr.us</a>
+    </p>
+
+    <p>
+        If you don't need a custom visualization, you can use
+        <a href="https://vega.github.io/vega-lite/">Vega-Lite</a>, 
+        which is much easier!
+    </p>
+
+    <p>
+      The introduction slides for this tutorial are <a href="presentation/index.html">here</a>.
+    </p>
+
+    <p>
+      To get started,
+      <pre>
+        git clone https://github.com/akeshavan/nha_2019
+      </pre>
+
+      <pre>
+        git checkout tags/step01
+      </pre>
+
+      <pre>
+        git checkout -b step01
+      </pre>
+    </p>
+
+    <p>
+      If we get lost or stuck during the tutorial, you can checkout the tag for the step we're on!
+    </p>
 
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
-      <script>
-        // introducing javascript
 
-        // in JS, we can manipulate HTML and CSS
-        // all HTML elements are represented by the Document-Object-Model (DOM)
-        // which is a massive datastructure that the browser uses to render a page.
+  </div>
 
-        // using JS, we can manipulate the DOM
 
-        // lets load external data using D3
 
-        d3.csv('./dataset.csv').then((data) => {
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
+  <script>
+    // introducing javascript
 
-          // get the list of column names that isn't
-          const metrics = [...data.columns]
-          metrics.splice(0,2)
+    // in JS, we can manipulate HTML and CSS
+    // all HTML elements are represented by the Document-Object-Model (DOM)
+    // which is a massive datastructure that the browser uses to render a page.
 
-          d3.select('#metricName')
-            .selectAll('option')
-            .data(metrics)
-            .enter()
-            .append('option')
-            .text(m => m)
-            .attr('value', m => m)
+    // using JS, we can manipulate the DOM
 
-          d3.select('#metricName')
-            .on('change', () => {
-              var metric = d3.select('#metricName').node().value;
-              updateElements(data, metric);
-            })
+    // lets load external data using D3
 
-          addNewElements(data, data.columns[2]);
+    d3.csv('./dataset.csv').then((data) => {
+
+      // get the list of column names that isn't
+      const metrics = [...data.columns]
+      metrics.splice(0,2)
+
+      d3.select('#metricName')
+        .selectAll('option')
+        .data(metrics)
+        .enter()
+        .append('option')
+        .text(m => m)
+        .attr('value', m => m)
+
+      d3.select('#metricName')
+        .on('change', () => {
+          var metric = d3.select('#metricName').node().value;
+          updateElements(data, metric);
         })
 
-        // next, lets create a new div element
-        // lets use D3 to do this
+      addNewElements(data, data.columns[2]);
+    })
 
-        function addNewElements(data, metric) {
-          d3.select('#chart')
-          .selectAll('.bar')
-          .data(data) // bind data to the elements inside #chart with class bar
-          .enter()
-          .append('div') // if there is a mismatch between data and .bar elements, append a div
-          .attr('class', 'bar') // set the class for those new divs as 'bar'
-          // next lets dynamically set the width and label. If the second argument in the method call
-          // is a function, D3 will pass us our data 1 at a time.
-          .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
-          .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
-          .on('click', (d) => {
-            d3.select('#kittenImg').attr('src', d.kitten);
+    // next, lets create a new div element
+    // lets use D3 to do this
+
+    function addNewElements(data, metric) {
+      d3.select('#chart')
+      .selectAll('.bar')
+      .data(data) // bind data to the elements inside #chart with class bar
+      .enter()
+      .append('div') // if there is a mismatch between data and .bar elements, append a div
+      .attr('class', 'bar') // set the class for those new divs as 'bar'
+      .transition()
+      .duration(500)
+      // next lets dynamically set the width and label. If the second argument in the method call
+      // is a function, D3 will pass us our data 1 at a time.
+      .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
+      .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
+      
+      d3.select('#chart')
+      .selectAll('.bar')
+      .on('click', (d, i) => {
+        d3.select('#kittenImg').attr('src', d.kitten);
+        d3.select('#chart')
+          .selectAll('.bar').each(function(dd, ii) {
+            if (i !== ii) {
+              d3.select(this).style('background-color', 'steelblue')
+            } else {
+              d3.select(this).style('background-color', 'darkred')
+            }
           });
-        }
+      });
+    }
 
-        function removeExtraElements(data) {
-          d3.select('#chart')
-          .selectAll('.bar')
-          .data(data) // bind data to the elements inside #chart with class bar
-          .exit()
-          .remove('div') // if there is a mismatch between data and .bar elements, append a div
-        }
+    function removeExtraElements(data) {
+      d3.select('#chart')
+      .selectAll('.bar')
+      .data(data) // bind data to the elements inside #chart with class bar
+      .exit()
+      .remove('div') // if there is a mismatch between data and .bar elements, append a div
+    }
 
-        function updateElements(data, metric) {
-          d3.select('#chart')
-            .selectAll('.bar')
-            .data(data) // bind data to the elements inside #chart with class bar
-            // no need to .enter().append() because we know the bars exist
-            .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
-            .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
-        }
+    function updateElements(data, metric) {
+      d3.select('#chart')
+        .selectAll('.bar')
+        .data(data) // bind data to the elements inside #chart with class bar
+        // no need to .enter().append() because we know the bars exist
+        .transition()
+        .duration(500)
+        .style('width', d => d[metric] + 'px') // this arrow notation is used for anonymous functions
+        .text((d,i) => d.label) // with two variables, use parenthesis before the arrow
+    }
 
-      </script>
-    </body>
-</html>
+  </script>
+
+
+</body></html>

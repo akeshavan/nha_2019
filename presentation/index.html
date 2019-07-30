@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Neurohackweek 2017 D3 Tutorial</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<style>
+
+		i {
+			color: #F52F57;
+		}
+
+		b {
+			color: #F52F57;
+		}
+
+		code {
+			color: #F7B267;
+		}
+
+		strong {
+			color: #F52F57;
+		}
+
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+				<section  id="title">
+
+					<h1> Interactive Data Visualization with D3.js</h1>
+					<p>
+						<small>Created by <a href="http://akeshavan.github.io">Anisha Keshavan</a> / <a href="http://twitter.com/akeshavan_">@akeshavan_</a></small>
+						<br>
+						<large><a href="http://akeshavan.github.io/nha_2019">akeshavan.github.io/nhw2017_d3</a></large>
+
+					</p>
+
+				</section>
+
+				<section id="why">
+          <h3>Why is interactive data viz important?</h3>
+          <ul>
+            <li> Our datasets are getting <i>larger</i></li>
+            <li> Our datasets are <i> multidimensional </i></li>
+            <li> Our datasets are getting less <i> intuitive </i></li>
+            <li> We need ways to connect
+              <i class="tt" id="iviz" data-tooltip="Like scatterplots, barplots" data-tooltip-position="bottom center"> information visualization
+              </i>
+              with
+              <i class="tt" id="sviz" data-tooltip="Like MRI scans, streamlines, surfaces" data-tooltip-position="top right"> scientific data visualization </i> </li>
+						<li><a href="http://roygbiv.mindboggle.info">like this</a></li>
+          </ul>
+
+        </section>
+
+        <section id="what">
+          <h3>What is <a href="http://d3js.org">D3.js </a>?</h3>
+          <ul>
+						<li> Data Driven Documents </li>
+            <li>A JavaScript library for manipulating HTML based on data</li>
+            <li>There are many beautiful <a href="https://github.com/d3/d3/wiki/Gallery">examples</a></li>
+						<li> I like this <a href="http://mbostock.github.io/d3/talk/20111116/bundle.html"> network diagram </a></li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h3>But, its hard</h3>
+          <ul>
+            <li>The examples aren't very reusable</li>
+          </ul>
+        </section>
+
+        <section id="others">
+          <h3>What about D3-based libraries?</h3>
+          <ul>
+            <li><a href="https://plot.ly/">Plotly</a></li>
+            <li><a href="http://nvd3.org/">NVD3</a></li>
+            <li><a href="http://dimplejs.org/">Dimple</a></li>
+            <li><a href="https://vega.github.io/vega/">Vega</a></li>
+            <li><a href="http://c3js.org/">C3.js</a></li>
+            <li><a href="https://dc-js.github.io/dc.js/">DC.js</a></li>
+          </ul>
+        </section>
+
+        <section id="basics">
+          <h3>These libraries are great, but</h3>
+          <ul>
+          <li> Sometimes we need to tweak them </li>
+          <li class="fragment"> We'll start with the <b>basics</b></li>
+					<li class="fragment"> The <b> goal </b>: you can understand and adapt D3 examples for your data</li>
+          </ul>
+        </section>
+
+        <section id="intro">
+          <h3>3 Parts to all websites:</h3>
+          <ul>
+          <li> HTML: the <b>content</b> </li>
+          <li> CSS: the <b> style </b> </li>
+          <li> JS: the <b> interaction </b> </li>
+          </ul>
+		<br>
+        </section>
+
+
+		<section data-markdown>
+			<script type="text/template">
+				# live tutorial
+				
+				1. `git clone https://github.com/akeshavan/nha_2019`
+				
+				2. `git checkout tags/step00`
+			</script>
+		</section>
+
+			
+
+<section data-markdown>
+	<script type="text/template">
+		### Resources/References
+
+		* [square.github.io D3 tutorial](https://square.github.io/intro-to-d3/web-standards/)
+		* [Aysegul Yonet's tutorial](http://yonet.github.io/d3-codeclass/#/)
+		* [this scatterplot example](http://bl.ocks.org/weiglemc/6185069)
+		* d3 hierarchical circle plot for a [connectome](http://nbviewer.jupyter.org/gist/akeshavan/d41ea27d12bc9ff61b37319170e10898/arbitraryHclustering.ipynb)
+
+</script>
+</section>
+
+<section data-markdown>
+	<script type="text/template">
+		### Questions?
+
+</script>
+</section>
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
